@@ -38,10 +38,10 @@ const AuthSchema = Schema({
         type: String,
         required: true,
     },
-    address: {
-        type: String,
-        required: true,
-    },
+    // address: {
+    //     type: String,
+    //     required: true,
+    // },
     rotation_transaction: [
         {
             type: Schema.Types.ObjectId,

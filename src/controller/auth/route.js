@@ -67,7 +67,7 @@ authRouter.post(
             password: req.body.password,
             username: req.body.username,
             phone: req.body.phone,
-            address: req.body.address,
+            // address: req.body.address,
             ip: ip,
             role: "USER",
             rotation_transaction: [],

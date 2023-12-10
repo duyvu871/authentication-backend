@@ -15,6 +15,6 @@ export const registrySchema = {
         password: Joi.string().required(),
         username: Joi.string().required(),
         phone: Joi.string().required(),
-        address: Joi.string().required(),
+        // address: Joi.string().required(),
     })
 }

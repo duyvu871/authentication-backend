@@ -10,7 +10,7 @@ console.log(`rotationLuckRouter path: /rotation-luck`);
 rotationLuckRouter.get(
     '/get-rotation-result',
     // celebrate(rotationLuckSchema), // validate params
-    ensureAuthenticated, // check auth
+    // ensureAuthenticated, // check auth
     async (req, res) => {
         try {
             // get params
@@ -27,7 +27,7 @@ rotationLuckRouter.get(
             const index =  rotationLuckController.setRotationTargetItem(1);
             const result = rotationLuckController.generateRotationLuck();
             // return result
-            return res.status(200).redirect('/luck-rotation-page');
+            return res.status(200).json(result)//.redirect('/luck-rotation-page');
         } catch (error) {
             return res.status(500).json({message: error.message});
         }

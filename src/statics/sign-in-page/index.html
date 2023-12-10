@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>sign in page</title>
-</head>
-<body>
-    <h1>Sign in page</h1>
-</body>
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <!--=============== REMIXICONS ===============-->
+      <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+      <!--=============== CSS ===============-->
+      <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+      <link rel="stylesheet" type="text/css" href="swiper.min.css">  
+      <link href="25.css" rel="stylesheet" type="text/css" /> 
+      <link rel="stylesheet" href="assets/css/styles.css" type="text/css"/>
+      <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+      <title>TH-SƯA TH TRUE MIIK</title>
+   </head>
+
+   <body>
+      <div class="login"> 
+         <img src="sua.jpeg" alt="login image" class="login__img">
+
+         <form action="" class="login__form">
+            <h1 class="login__title"> HÀ NAM MILK</h1>
+
+            <div class="login__content">
+               <div class="login__box">
+                  <i class="ri-user-3-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="email" required class="login__input" id="login-email" placeholder=" ">
+                     <label for="login-email" class="login__label">Email</label>
+                  </div>
+               </div>
+
+               <div class="login__box">
+                  <i class="ri-lock-2-line login__icon"></i>
+
+                  <div class="login__box-input">
+                     <input type="password" required class="login__input" id="login-pass" placeholder=" ">
+                     <label for="login-pass" class="login__label">mật khẩu</label>
+                     <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                  </div>
+               </div>
+            </div>
+ 
+            <div class="login__check">
+               <div class="login__check-group">
+                  <input type="checkbox" class="login__check-input" id="login-check">
+                  <label for="login-check" class="login__check-label">Duy trì tài khoản</label>
+               </div>
+
+               <a href="reload_password.html" class="login__forgot">quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="login__button" id="redirectButton">Login</button>
+
+            <p class="login__register">
+               chưa có tài khoản? <a href="register.html">đăng ký mới</a>
+            </p>
+         </form>
+         
+      </div>
+         <div class="tt-footer">
+         <div class="container">
+            <div class="tt-footer-tt">
+           <div class="row">
+            
+             <div class="col-md-6">
+               <div class="tt-footer-sub1">
+                 <a href="#"><img src="Untitled.jpeg" alt="logo"></a>
+               
+                 <div class="tt-footer-mr"><span>HÀ NAM MILK luôn đồng hành cùng khách hàng</span></div>
+                 <div class="tt-footer-mr"><span>HÀ NAM MILK Chất Lượng Cùng Năm Tháng</span></div>
+                 <div class="tt-footer-mr"><span>CUNG CẤP SỮA UY TIN VIỆT NAM</span></div>
+                 </div>
+             </div>
+             <div class="col-md-3">
+               <div class="tt-footer-sub2">
+                    
+                      <h5>Liên hệ</h5>
+                 <div class="tt-footer-mr"> <span><i class="fa fa-map" ></i>Thôn Đô Quan, Xã Mộc Nam, Thị xã Duy Tiên, Tỉnh Hà Nam, Việt Nam</span></div>
+                 <div class="tt-footer-mr"><span><i class="fas fa-envelope"></i>HÀNAMMILK@gmail.com.vn</span></div>
+                 <div class="tt-footer-mr"><span><i class="fa  fa-phone" ></i>0700731083</span></div>
+               </div>
+             </div>
+             <div class="col-md-3">
+                <div class="tt-footer-sub3">
+                     <h5>Chính sách công ty</h5>
+                     <div class="tt-footer-mr"><span>Cung cấp dịch vụ</span></div>
+                     <div class="tt-footer-mr"><span>Bảo mật thông tin</span></div>
+                     <div class="tt-footer-mr"> <span>Chính sách bảo hành</span></div>
+                     
+               </div>
+             </div>
+           </div>
+           </div>
+         </div>
+         <div class="tt-footer-ft">
+           <div class="container">
+           <span style="color: #Fff;">	HA NAM MILK JOINT STOCK COMPANY </span>
+             <div class="st-top-menu-right">
+                 <i class="fab fa-facebook"></i>
+                 <i class="fab fa-twitter-square"></i>
+                 <i class="fab fa-google"></i>
+                 <i class="fab fa-pinterest"></i>
+                 <i class="fab fa-youtube"></i>
+             </div>
+         </div>
+         </div>
+       
+       </div>
+       <div class="tt-backto-top">
+         
+       <div id="button"></div>
+       </div>
+      
+      <script src="main.js"></script>
+   </body>
 </html>
