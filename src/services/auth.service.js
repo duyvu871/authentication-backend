@@ -39,8 +39,10 @@ export default class AuthService {
     }
     async signup(userInsertData) {
         // const token = await this.generateToken(username, password); // generate token
-        const dbSearch = await this.User.findOne({username: userInsertData.username}); // search user in db
-        console.log("ip:" + userInsertData.ip)
+        const dbSearch = await this.User.findOne({email: userInsertData.email});// search user in db
+
+        console.log("ip: " + userInsertData.ip);
+        console.log("search data: ", dbSearch);
         if (dbSearch) return {
             response: {
                 message :'User already exists'
@@ -77,5 +79,9 @@ export default class AuthService {
         if (!username) return null;
 
         return await this.User.findOne({username: username});
+    }
+
+    async getUserByEmail(email) {
+        return this.User.findOne({email: email});
     }
 }

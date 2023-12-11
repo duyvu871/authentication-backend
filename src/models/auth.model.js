@@ -1,13 +1,32 @@
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
-
+// id: 14,
+//     title: 'Item 14',
+//     description: 'Description 14',
+//     image: 'https://via.placeholder.com/150'
 const TransactionSchema = Schema({
-    result: {
-        type: Number,
+    T_id: {
+        type: String,
         required: true
     },
-    item: {
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    timeStamp: {
+        type: Number,
+        required: true,
+    },
+    ip: {
         type: String,
         required: true,
     },

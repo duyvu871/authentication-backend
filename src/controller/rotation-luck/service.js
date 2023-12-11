@@ -23,11 +23,20 @@ export class RotationLuckService {
         return this.rotationTargetItem;
     }
 
-    generateRotationLuck() {
+    generateRotationLuck(user, ip) {
       // return new Promise((resolve, reject) => {
-        const rotationTargetItemIndex = ListItems.findIndex(item => item.id === targetID);
+        const rotationTargetItemIndex = ListItems.findIndex(item => item.T_id === targetID);
+        const rotationTargetItem = ListItems[rotationTargetItemIndex];
+        // const rotationCollection = this.create(user, {
+        //     ...rotationTargetItem,
+        //     timeStamp: new Date().getTime().toString(),
+        //     ip: ip,
+        // })
         // resolve(rotationTargetItem);
       // });
-        return ListItems[rotationTargetItemIndex];
+        return rotationTargetItem;
+    }
+    getRotationList() {
+        return ListItems;
     }
 }

@@ -52,15 +52,24 @@ fetch("http://localhost:3000/auth/sign-up", requestOptions)
 ### path: /rotation-luck/get-rotation-result
 
 ```ecmascript 6
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+var urlencoded = new URLSearchParams();
+urlencoded.append("email", "thanhtruc@gmail.com");
+urlencoded.append("id", "657723b240a0e6f60a0331e7");
+
 var requestOptions = {
-  method: 'GET',
-  redirect: 'follow'
+    method: 'POST',
+    headers: myHeaders,
+    body: urlencoded,
+    redirect: 'follow'
 };
 
 fetch("http://localhost:3000/rotation-luck/get-rotation-result", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 ```
 
 #### data response
@@ -74,6 +83,45 @@ fetch("http://localhost:3000/rotation-luck/get-rotation-result", requestOptions)
 }
 ```
 
+## path:  /rotation-luck/get-rotation-list
+
+````ecmascript 6
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+````
+
+### data response
+
+```json
+[
+    {
+        "T_id": 1,
+        "title": "Item 1",
+        "description": "Description 1",
+        "image": "https://via.placeholder.com/150"
+    },
+    {
+        "T_id": 2,
+        "title": "Item 2",
+        "description": "Description 2",
+        "image": "https://via.placeholder.com/150"
+    },
+    {
+        "T_id": 3,
+        "title": "Item 3",
+        "description": "Description 3",
+        "image": "https://via.placeholder.com/150"
+    },
+....
+]
+```
 
 cài đặt mongoosedb local để chạy test
 

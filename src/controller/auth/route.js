@@ -34,9 +34,9 @@ authRouter.post(
                 return res.status(401).json({message: "Username or password is incorrect"});
             }
             // Return result
-            return res.status(200).json(result).redirect('/home.html');
+            return res.status(200).json(result);
         } catch (error) {
-            return res.status(500).json({message: error.message}).redirect('/sign-in-page');
+            return res.status(500).json({message: error.message});
         }
     }
 );
@@ -73,14 +73,13 @@ authRouter.post(
             rotation_transaction: [],
         }
 
-
         const signUp = await authController.signup(userInsertData);
-        console.log("signUp: ", signUp)
-        if (signUp.status !== 400) {
-            return res.status(400).redirect('/sign-up-page');
+        // console.log("signUp: ", signUp);
+        if (signUp.status === 400) {
+            return res.status(400).send(JSON.stringify(signUp));
         }
 
-        res.status(200).redirect('/sign-in-page');
+        res.status(200).send(JSON.stringify(signUp));
     }
 );
 

@@ -69,6 +69,9 @@
             margin-top: 40px;
         }
     </style>
+    <script>
+        let items = document.getElementsByTagName("textarea")[0].value.split("\n");
+    </script>
 </head>
 <body>
 
@@ -240,7 +243,7 @@
   </div>
   
 </div>
-<div class="inputArea" onchange="createWheel()">
+<div class="inputArea" onchange="createWheel()" style="display: none">
   <textarea rows="20" cols="30" >cat
 dog
 cow
@@ -284,8 +287,8 @@ chicken</textarea>
   const centerY = height/2
   const radius = width/2
 
-  let items = document.getElementsByTagName("textarea")[0].value.split("\n");
-
+  let items //= document.getElementsByTagName("textarea")[0].value.split("\n");
+    getWheelItems();
   let currentDeg = 0
   let step = 360/items.length
   let colors = []
@@ -294,17 +297,25 @@ chicken</textarea>
   for(let i = 0 ; i < items.length + 1;i++){
       colors.push(randomColor())
   }
+    async function getWheelItems(){
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-  function createWheel(){
-      items = document.getElementsByTagName("textarea")[0].value.split("\n");
+        return (await fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)).json();
+
+    }
+  async function createWheel(){
+      items = (await getWheelItems()).map(item => item.title);//= document.getElementsByTagName("textarea")[0].value.split("\n");
       step = 360/items.length
       colors = []
       for(let i = 0 ; i < items.length + 1;i++){
-          colors.push(randomColor())
+          colors.push(randomColor());
       }
       draw()
   }
-  draw()
+
 
   function draw(){
       ctx.beginPath();
@@ -393,7 +404,7 @@ chicken</textarea>
       draw();
 
       
-      maxRotation = (360 * 6) - itemDegs['cat'].endDeg + 10
+      maxRotation = (360 * 6) - itemDegs['Item 1'].endDeg + 10
       itemDegs = {}
       console.log("max",maxRotation)
       console.log(itemDegs);

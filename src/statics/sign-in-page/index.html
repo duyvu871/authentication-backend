@@ -23,7 +23,7 @@
       <div class="login"> 
          <img src="../styles/sua.jpeg" alt="login image" class="login__img">
 
-         <form action="" class="login__form">
+         <div class="login__form">
             <h1 class="login__title"> HÀ NAM MILK</h1>
 
             <div class="login__content">
@@ -61,7 +61,7 @@
             <p class="login__register">
                chưa có tài khoản? <a href="/">đăng ký mới</a>
             </p>
-         </form>
+         </div>
          
       </div>
          <div class="tt-footer">
@@ -118,6 +118,44 @@
        <div id="button"></div>
        </div>
       
-      <script src="../styles/main.js"></script>
+<!--      <script src="../styles/main.js"></script>-->
+      <script>
+          const redirectButton = document.getElementById('redirectButton');
+          redirectButton.addEventListener('click', () => {
+              const email = document.getElementById('login-email').value;
+              const password = document.getElementById('login-pass').value;
+              const isRemember = document.getElementById('login-check').checked;
+
+              var myHeaders = new Headers();
+              myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+              var urlencoded = new URLSearchParams();
+              urlencoded.append("email", email);
+              urlencoded.append("password", password);
+              urlencoded.append("isRemember", isRemember);
+
+              var requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: urlencoded,
+                  redirect: 'follow'
+              };
+
+              fetch("http://localhost:3000/auth/sign-in", requestOptions)
+                  .then(response => response.json())
+                  .then(result => {
+                      console.log(result);
+
+                        if (result.status === 200) {
+                            localStorage.setItem('token', result.response._id);
+                            localStorage.setItem('user', JSON.stringify(result.response));
+                            window.location.href = '/home.html';
+                        } else {
+                            alert(result.message);
+                        }
+
+                  }).catch(error => console.log('error', error));
+            });
+      </script>
    </body>
 </html>
