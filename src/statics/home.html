@@ -11,6 +11,64 @@
     <link href="./styles/25.css" rel="stylesheet" type="text/css" />
     <link href="./styles/home.css" rel="stylesheet" type="text/css" />
     <title>Home</title>
+    <style>
+        body{
+            background-color: #333;
+        }
+
+        .header{
+            padding: 40px;
+            color: #fff;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+        .header h1,p{
+            text-align: center;
+        }
+
+        .wheel{
+            display: flex;
+            justify-content: center;
+            position: relative;
+
+        }
+
+        .wheel > #canvas {
+            width: 70vw;
+        }
+        .center-circle{
+            width: 100px;
+            height: 100px;
+            border-radius: 60px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .triangle{
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 30px solid white;
+            position: absolute;
+            top: 50%;
+            right: -26vw;
+            transform: translateY(-50%);
+        }
+
+        textarea{
+            background-color: rgba(20, 20, 20, 0.2);
+            caret-color: #fff;
+            resize: none;
+            color: #fff;
+        }
+        .inputArea{
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
 
@@ -166,64 +224,7 @@
 </div>
 
 
-<style>
-  body{
-      background-color: #333;
-  }
 
-  .header{
-      padding: 40px;
-      color: #fff;
-      margin: 0 auto;
-      margin-bottom: 40px;
-  }
-  .header h1,p{
-      text-align: center;
-  }
-
-  .wheel{
-      display: flex;
-      justify-content: center;
-      position: relative;
-      
-  }
-
-  .wheel > #canvas {
-    width: 70vw;
-  }
-  .center-circle{
-      width: 100px;
-      height: 100px;
-      border-radius: 60px;
-      background-color: #fff;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-  }
-  .triangle{
-      width: 0; 
-      height: 0; 
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent; 
-      border-right: 30px solid white; 
-      position: absolute;
-      top: 50%;
-      right: -26vw;
-      transform: translateY(-50%);
-  }
-
-  textarea{
-      background-color: rgba(20, 20, 20, 0.2);
-      caret-color: #fff;
-      resize: none;
-      color: #fff;
-  }
-  .inputArea{
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-  }
-</style>
 
 <!--</head>-->
 <!---->
@@ -413,7 +414,7 @@ chicken</textarea>
            
             <div class="col-md-6">
               <div class="tt-footer-sub1">
-                <a href="#"><img src="Untitled.jpeg" alt="logo"></a>
+                <a href="#"><img src="./styles/Untitled.jpeg" alt="logo"></a>
               
                 <div class="tt-footer-mr"><span>HÀ NAM MILK luôn đồng hành cùng khách hàng</span></div>
                 <div class="tt-footer-mr"><span>HÀ NAM MILK Chất Lượng Cùng Năm Tháng</span></div>
