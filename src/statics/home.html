@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             position: relative;
-
+            margin: 120px 0;
         }
 
         .wheel > #canvas {
@@ -70,7 +70,42 @@
         }
     </style>
     <script>
-        let items = document.getElementsByTagName("textarea")[0].value.split("\n");
+        let items = [];
+        let targetItem = "";
+        async function getWheelItems(){
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            return (await fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)).json();
+        }
+
+        async function getTargetItem(){
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("email", "abc@cde.fgh");
+            urlencoded.append("id", "122333");
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+             return (await fetch("http://localhost:3000/rotation-luck/get-rotation-result", requestOptions)).json();
+
+        }
+
+        Promise.all([getWheelItems(), getTargetItem()]).then((values) => {
+            items = values[0].map(item => item.title);
+            targetItem = values[1].title;
+            createWheel();
+            draw()
+        });
     </script>
 </head>
 <body>
@@ -243,17 +278,17 @@
   </div>
   
 </div>
-<div class="inputArea" onchange="createWheel()" style="display: none">
-  <textarea rows="20" cols="30" >cat
-dog
-cow
-duck
-sheep
-goat
-bird
-neko
-chicken</textarea>
-</div>
+<!--<div class="inputArea" onchange="createWheel()" style="display: none">-->
+<!--  <textarea rows="20" cols="30" >cat-->
+<!--dog-->
+<!--cow-->
+<!--duck-->
+<!--sheep-->
+<!--goat-->
+<!--bird-->
+<!--neko-->
+<!--chicken</textarea>-->
+<!--</div>-->
 
 <script>
   function randomColor(){
@@ -287,8 +322,8 @@ chicken</textarea>
   const centerY = height/2
   const radius = width/2
 
-  let items //= document.getElementsByTagName("textarea")[0].value.split("\n");
-    getWheelItems();
+  // let items //= document.getElementsByTagName("textarea")[0].value.split("\n");
+  //   getWheelItems();
   let currentDeg = 0
   let step = 360/items.length
   let colors = []
@@ -297,17 +332,9 @@ chicken</textarea>
   for(let i = 0 ; i < items.length + 1;i++){
       colors.push(randomColor())
   }
-    async function getWheelItems(){
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
 
-        return (await fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)).json();
-
-    }
   async function createWheel(){
-      items = (await getWheelItems()).map(item => item.title);//= document.getElementsByTagName("textarea")[0].value.split("\n");
+      // items = (await getWheelItems()).map(item => item.title);//= document.getElementsByTagName("textarea")[0].value.split("\n");
       step = 360/items.length
       colors = []
       for(let i = 0 ; i < items.length + 1;i++){
@@ -404,7 +431,7 @@ chicken</textarea>
       draw();
 
       
-      maxRotation = (360 * 6) - itemDegs['Item 1'].endDeg + 10
+      maxRotation = (360 * 6) - itemDegs["Item 2"].endDeg + 10
       itemDegs = {}
       console.log("max",maxRotation)
       console.log(itemDegs);

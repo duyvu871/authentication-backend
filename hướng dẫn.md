@@ -99,7 +99,7 @@ fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)
 
 ### data response
 
-```json
+```javascript
 [
     {
         "T_id": 1,
@@ -119,9 +119,13 @@ fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)
         "description": "Description 3",
         "image": "https://via.placeholder.com/150"
     },
-....
+//....
 ]
 ```
+## path:  /excel-service/get-collection-as-excel
+
+tải file excel dữ liệu người dùng về về
+
 
 cài đặt mongoosedb local để chạy test
 
