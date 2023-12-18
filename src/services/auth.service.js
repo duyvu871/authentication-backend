@@ -4,6 +4,8 @@ import UserSchema from '../models/auth.model.js';
 // import jwt from 'jsonwebtoken';
 // import { JWT_SECRET } from '../config';
 import User from '../models/auth.model.js';
+import jwt from "jsonwebtoken"
+import AppConfig from "../configs/app.config.js";
 
 export default class AuthService {
     constructor() {
@@ -67,6 +69,42 @@ export default class AuthService {
     // generate token
     async generateToken(username, password) {
         return await bcrypt.hash(`${username}-${password}`, 10);
+    }
+
+    // Generate jwt
+    async generateJWT(_id, accessTokenSecret, accessTokenLife) {
+        return await jwt.sign(
+            {id: _id},
+            accessTokenSecret,
+            {
+                expiresIn: accessTokenLife,
+                algorithm: 'HS256',
+            }
+        );
+    }
+
+    async generateRefreshToken(_id, refreshToken) {
+        return await jwt.sign(
+            {id: _id},
+            refreshToken,
+            {
+                algorithm: 'HS256',
+            }
+        );
+    }
+
+    async decodeToken(token, accessTokenSecret) {
+        return await jwt.decode(token, accessTokenSecret);
+    }
+
+    async updateRefreshToken() {
+        await this.User.findOneAndUpdate({_id: _id}, {refreshToken: refreshToken});
+
+    }
+
+    // Verify jwt
+    async verifyToken(token, accessTokenSecret) {
+        return await jwt.verify(token, accessTokenSecret);
     }
 
     // get User by id

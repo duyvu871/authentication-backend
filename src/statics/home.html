@@ -78,7 +78,7 @@
                 redirect: 'follow'
             };
 
-            return (await fetch("http://localhost:3000/rotation-luck/get-rotation-list", requestOptions)).json();
+            return (await fetch("http://localhost:3001/rotation-luck/get-rotation-list", requestOptions)).json();
         }
 
         async function getTargetItem(){
@@ -96,7 +96,7 @@
                 redirect: 'follow'
             };
 
-             return (await fetch("http://localhost:3000/rotation-luck/get-rotation-result", requestOptions)).json();
+             return (await fetch("http://localhost:3001/rotation-luck/get-rotation-result", requestOptions)).json();
 
         }
 

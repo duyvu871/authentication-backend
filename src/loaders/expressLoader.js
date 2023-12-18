@@ -13,9 +13,17 @@ import User from "../models/auth.model.js";
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcrypt";
 import path from "path";
-
+import ConnectRedis from "connect-redis";
+import redis from "redis";
 
 export default async ({app}) => {
+
+    // const RedisStore = new ConnectRedis(session);
+    // const redisClient = redis.createClient({
+    //     host: "localhost",
+    //     port: 6379,
+    //     // password: process.env.REDIS_PASSWORD,
+    // });
     // passport config
     passport.use(new LocalStrategy(
         (username, password, done) => {
@@ -71,20 +79,21 @@ export default async ({app}) => {
 
     dotenv.config(); // load environment variables
 
-    app.use(session({
-        genid:(req) => {
-            console.log('Inside the session middleware')
-            console.log(req.sessionID);
-            return uuidv4() //use UUIDs for session IDs
-        },
-        secret: AppConfig.SESSION_SECRET, // session secret
-        resave: true, // forces the session to be saved back to the session store
-        saveUninitialized: true, // dont save unmodified
-        cookie: {
-            secure: true, // serve secure cookies
-            maxAge: 24 * 60 * 60 * 1000 // session expires in 24 hours
-        }
-    }));
+    // app.use(session({
+    //     genid:(req) => {
+    //         console.log('Inside the session middleware')
+    //         console.log(req.sessionID);
+    //         return uuidv4() //use UUIDs for session IDs
+    //     },
+    //     // store: new RedisStore({ client: redisClient }), // store session in redis
+    //     secret: AppConfig.SESSION_SECRET, // session secret
+    //     resave: true, // forces the session to be saved back to the session store
+    //     saveUninitialized: true, // dont save unmodified
+    //     cookie: {
+    //         secure: true, // serve secure cookies
+    //         maxAge: 24 * 60 * 60 * 1000 // session expires in 24 hours
+    //     }
+    // }));
 
     app.use(passport.authenticate("session")); // persistent login sessions
     app.use(passport.initialize()); // initialize passport

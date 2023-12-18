@@ -57,6 +57,14 @@ const AuthSchema = Schema({
         type: String,
         required: true,
     },
+    access_token: {
+        type: String,
+        required: true,
+    },
+    refresh_token: {
+        type: String,
+        required: true,
+    },
     // address: {
     //     type: String,
     //     required: true,
