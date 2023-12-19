@@ -7,7 +7,7 @@ const Role = database.role;
 export default async () => {
 
     try {
-        const connection = await mongoose.connect(`mongodb://${DB_CONFIG.HOST}:${DB_CONFIG.PORT}/${DB_CONFIG.DB}`, {
+        const connection = await mongoose.connect(`${DB_CONFIG.URL}`, {
             // useNewUrlParser: true, // For deprecation warnings
             // useUnifiedTopology: true, // For deprecation warnings
             // useCreateIndex: true, // For deprecation warnings

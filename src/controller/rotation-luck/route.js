@@ -5,6 +5,7 @@ import AuthService from "../../services/auth.service.js";
 import { rotationLuckSchema } from './dto.js';
 import { RotationLuckService } from './service.js';
 import {ensureAuthenticated} from "../../subcribers/auth.subscriber.js";
+import { authenticateJWT} from "../../scripts/authenticateJWT.js";
 
 export const rotationLuckRouter = express.Router();
 console.log(`rotationLuckRouter path: /rotation-luck`);
@@ -12,6 +13,7 @@ rotationLuckRouter.post(
     '/get-rotation-result',
     // celebrate(rotationLuckSchema), // validate params
     // ensureAuthenticated, // check auth
+    authenticateJWT,
     async (req, res) => {
         try {
             // get params
@@ -39,6 +41,7 @@ rotationLuckRouter.get(
     '/get-rotation-list',
     // celebrate(rotationLuckSchema), // validate params
     // ensureAuthenticated, // check auth
+    authenticateJWT,
     async (req, res) => {
         try {
             // get params

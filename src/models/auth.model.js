@@ -57,13 +57,17 @@ const AuthSchema = Schema({
         type: String,
         required: true,
     },
-    access_token: {
-        type: String,
+    // access_token: {
+    //     type: String,
+    //     required: true,
+    // },
+    balance: {
+        type: Number,
         required: true,
     },
     refresh_token: {
         type: String,
-        required: true,
+        required: false,
     },
     // address: {
     //     type: String,

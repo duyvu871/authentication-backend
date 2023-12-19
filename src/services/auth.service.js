@@ -97,8 +97,8 @@ export default class AuthService {
         return await jwt.decode(token, accessTokenSecret);
     }
 
-    async updateRefreshToken() {
-        await this.User.findOneAndUpdate({_id: _id}, {refreshToken: refreshToken});
+    async updateRefreshToken(_id, refreshToken) {
+        await this.User.findOneAndUpdate({_id: _id}, {refresh_token: refreshToken});
 
     }
 
@@ -107,10 +107,6 @@ export default class AuthService {
         return await jwt.verify(token, accessTokenSecret);
     }
 
-    // get User by id
-    async getUserById(id) {
-        return await this.User.findOne({_id: id});
-    }
 
     // get User by username
     async getUserByName(username) {
@@ -121,5 +117,23 @@ export default class AuthService {
 
     async getUserByEmail(email) {
         return this.User.findOne({email: email});
+    }
+
+    async getUserById(id) {
+        const dbSearch = await this.User.findOne({_id: id}); // search user in db
+        if (!dbSearch) return {
+            response: {
+                message :'User not found'
+            },
+            status: 400,
+            specifyCode: 'user_not_found'
+        }; // if user not found
+
+        return {
+            response: dbSearch,
+            status: 200,
+            specifyCode: 'user_found'
+
+        }; // return user
     }
 }

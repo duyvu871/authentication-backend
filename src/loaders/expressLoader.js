@@ -25,48 +25,48 @@ export default async ({app}) => {
     //     // password: process.env.REDIS_PASSWORD,
     // });
     // passport config
-    passport.use(new LocalStrategy(
-        (username, password, done) => {
-            User.findOne({ username: username }, (err, user) => {
-                if (err) { return done(err); }
-                if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
-                if (!bcrypt.compareSync(password, user.password)) {
-                    return done(null, false, { message: 'Incorrect password.' });
-                }
-                return done(null, user);
-            }); // end User.findOne
-        }
-    ));
+    // passport.use(new LocalStrategy(
+    //     (username, password, done) => {
+    //         User.findOne({ username: username }, (err, user) => {
+    //             if (err) { return done(err); }
+    //             if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
+    //             if (!bcrypt.compareSync(password, user.password)) {
+    //                 return done(null, false, { message: 'Incorrect password.' });
+    //             }
+    //             return done(null, user);
+    //         }); // end User.findOne
+    //     }
+    // ));
     // passport session setup
-    passport.serializeUser((user, done) => {
-        process.nextTick(() => {
-            return done(null, {
-                id: user.id,
-                username: user.username,
-                name_role: user.name_role,
-                email: user.email,
-                phone: user.phone,
-                address: user.address,
-                avatar: user.avatar,
-                is_active: user.is_active,
-                is_deleted: user.is_deleted,
-                created_at: user.created_at,
-                updated_at: user.updated_at,
-                // deleted_at: user.deleted_at,
-            }); // user.id is used to identify authenticated user
-
-        }); // end process.nextTick
-    }); // end passport config
+    // passport.serializeUser((user, done) => {
+    //     process.nextTick(() => {
+    //         return done(null, {
+    //             id: user.id,
+    //             username: user.username,
+    //             name_role: user.name_role,
+    //             email: user.email,
+    //             phone: user.phone,
+    //             address: user.address,
+    //             avatar: user.avatar,
+    //             is_active: user.is_active,
+    //             is_deleted: user.is_deleted,
+    //             created_at: user.created_at,
+    //             updated_at: user.updated_at,
+    //             // deleted_at: user.deleted_at,
+    //         }); // user.id is used to identify authenticated user
+    //
+    //     }); // end process.nextTick
+    // }); // end passport config
     // used to deserialize the user
-    passport.deserializeUser((id, done) => {
-        User.findById(id, (err, user) => {
-            process.nextTick(() => {
-                if (err) { return done(err); }
-                if (!user) { return done(null, false); }
-                return done(null, user);
-            }); // end process.nextTick
-        }); // end User.findById
-    }); // end passport config
+    // passport.deserializeUser((id, done) => {
+    //     User.findById(id, (err, user) => {
+    //         process.nextTick(() => {
+    //             if (err) { return done(err); }
+    //             if (!user) { return done(null, false); }
+    //             return done(null, user);
+    //         }); // end process.nextTick
+    //     }); // end User.findById
+    // }); // end passport config
 
 
     app.get("/status", (req, res) => {
@@ -95,9 +95,9 @@ export default async ({app}) => {
     //     }
     // }));
 
-    app.use(passport.authenticate("session")); // persistent login sessions
-    app.use(passport.initialize()); // initialize passport
-    app.use(passport.session()); // persistent login sessions
+    // app.use(passport.authenticate("session")); // persistent login sessions
+    // app.use(passport.initialize()); // initialize passport
+    // app.use(passport.session()); // persistent login sessions
     app.use(cors({
         origin: process.env.CORS_ORIGIN, // allow to server to accept request from different origin
         // credentials: true

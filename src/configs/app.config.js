@@ -10,7 +10,7 @@ const AppConfig = {
         // ...
         url: 'http://localhost:3000/api',
     },
-    port: 3001,
+    port: 3002,
     SESSION_SECRET: "blackcatsecret",
     MONGODB_URL:"mongodb://localhost:27017/rotation-luck",
     rootPath: path.resolve(__dirname, '../../'),
