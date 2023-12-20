@@ -103,7 +103,7 @@ export default async ({app}) => {
         // credentials: true
     })); // enable cors
     app.use(bodyParser.json()); // parse application/json
-    app.use(bodyParser.urlencoded({extended: false})); // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
     app.use(cookieParser()); // parse cookie
     app.use(express.static(path.join(AppConfig.rootPath, "src/statics"))); // set static path
     // console.log(path.join(AppConfig.rootPath, "src/statics"));
