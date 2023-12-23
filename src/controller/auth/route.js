@@ -28,7 +28,7 @@ authRouter.post(
             // console.log("email: ", email);
             // console.log("password: ", password);
             // Get ip address
-            const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
             // Setup auth service
             const authController = new AuthService();
             // Login
@@ -105,7 +105,7 @@ authRouter.post(
     celebrate(registrySchema),
     async (req, res) => {
         const authController = new AuthService();
-        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
         const userInsertData = {
             email: req.body.email,
             password: req.body.password,
@@ -223,33 +223,3 @@ authRouter.get(
             .json({accessToken: newAccessToken});
     }
 );
-
-// passport.use(
-//     "local",
-//     new LocalStrategy(
-//         {
-//             passReqToCallback: true, // allows us to pass back the entire request to the callback
-//         },
-//         async (req, email, password, done) => {
-//             console.log("email: ", email);
-//             console.log("password: ", password);
-//             await loginAttempt();
-//
-//             async function loginAttempt() {
-//                 try {
-//                     const { email, password } = req.body;
-//                     const authController = new AuthService();
-//                     const result = await authController.checkUser(email, password);
-//                     if (result.status !== 200) {
-//                         return done(null, false, { message: "Username or password is incorrect" });
-//                     }
-//                     return done(null, result);
-//                 } catch (error) {
-//                     return done(null, false, { message: error.message });
-//                 }
-//             }
-//         }
-//     )
-// );
-
-
