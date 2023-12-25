@@ -98,10 +98,7 @@ export default async ({app}) => {
     // app.use(passport.authenticate("session")); // persistent login sessions
     // app.use(passport.initialize()); // initialize passport
     // app.use(passport.session()); // persistent login sessions
-    app.use(cors({
-        origin: process.env.CORS_ORIGIN, // allow to server to accept request from different origin
-        // credentials: true
-    })); // enable cors
+    app.use(cors()); // enable cors
     app.use(bodyParser.json()); // parse application/json
     app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
     app.use(cookieParser()); // parse cookie
