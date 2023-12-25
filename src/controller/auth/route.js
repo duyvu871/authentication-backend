@@ -33,7 +33,7 @@ authRouter.post(
             const authController = new AuthService();
             // Login
             const result = await authController.checkUser(email, password, ip);
-            if (result === null) {
+            if (result.status === 400) {
                 return res.status(401).json({message: "Username or password is incorrect"});
             }
 
