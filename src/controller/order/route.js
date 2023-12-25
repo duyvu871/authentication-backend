@@ -10,7 +10,7 @@ export const orderRouter = express.Router();
 console.log(`Order router loaded: /order`);
 orderRouter.get(
     '/get-order-list',
-    celebrate(OrderSchema),
+    // celebrate(OrderSchema),
     authenticateJWT,
     async (req, res) => {
         try {
@@ -46,7 +46,7 @@ orderRouter.post(
                 status: 'completed',
             }
             const result = await orderService.createOrder(orderData);
-            return responseTemplate(res).header("A").status(200).json(result);
+            return responseTemplate(res).status(200).json(result);
         } catch (error) {
             return responseTemplate(res).status(500).json({message: error.message});
         }
