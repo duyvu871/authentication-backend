@@ -11,6 +11,10 @@ export class OrderService {
         const newOrder = new this.OrderModel(order);
         return newOrder.save();
     }
+
+    getAllOrders() {
+        return this.OrderModel.find();
+    }
     getOrdersByUserID(from) {
         return this.OrderModel.find({from: from});
     }

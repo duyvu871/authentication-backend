@@ -19,7 +19,8 @@ orderRouter.get(
             const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
             // call service
             const orderService = new OrderService();
-            const result = await orderService.getOrdersByUserID(userId);
+            // const result = await orderService.getOrdersByUserID(userId);
+            const result = await orderService.getAllOrders();
             // return result
             return responseTemplate(res).status(200).json(result)//.redirect('/luck-rotation-page');
         } catch (error) {
