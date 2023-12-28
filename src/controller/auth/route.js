@@ -24,7 +24,7 @@ authRouter.post(
     async (req, res) => {
         try {
             // Get username and password from request body
-            const { email, password } = req.body;
+            const { username, password } = req.body;
             // console.log("email: ", email);
             // console.log("password: ", password);
             // Get ip address
@@ -32,7 +32,8 @@ authRouter.post(
             // Setup auth service
             const authController = new AuthService();
             // Login
-            const result = await authController.checkUser(email, password, ip);
+            const result = await authController.checkUser(username.trim(), password.trim(), ip);
+            // console.log("result:", username.trim());
             if (result.status === 400) {
                 return res.status(401).json({message: "Username or password is incorrect"});
             }
@@ -107,10 +108,10 @@ authRouter.post(
         const authController = new AuthService();
         const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
         const userInsertData = {
-            email: req.body.email,
+            email: req.body.email || "abc@gmail.com",
             password: req.body.password,
             username: req.body.username,
-            phone: req.body.phone,
+            phone: req.body.phone || "0123456789",
             balance: 1000000,
             // address: req.body.address,
             refresh_token: "",

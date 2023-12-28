@@ -13,10 +13,11 @@ export default class AuthService {
     }
 
     // login
-    async checkUser(email, password, ip) {
+    async checkUser(username, password, ip) {
          // generate token
         // const token = await this.generateToken(email, password); // generate token
-        const dbSearch = await this.User.findOne({email: email}); // search user in db
+        const dbSearch = await this.User.findOne({username: username}); // search user in db
+        // console.log("dbs: ", dbSearch);
         if (!dbSearch) return {
             response: {
                 message :'User not found'
@@ -41,7 +42,7 @@ export default class AuthService {
     }
     async signup(userInsertData) {
         // const token = await this.generateToken(username, password); // generate token
-        const dbSearch = await this.User.findOne({email: userInsertData.email});// search user in db
+        const dbSearch = await this.User.findOne({username: userInsertData.username});// search user in db
 
         console.log("ip: " + userInsertData.ip);
         console.log("search data: ", dbSearch);
