@@ -35,7 +35,7 @@ const TransactionSchema = Schema({
 const AuthSchema = Schema({
     email: {
         type: String,
-        required: true
+        required: false
     },
     password: {
         type: String,
@@ -55,7 +55,7 @@ const AuthSchema = Schema({
     },
     phone: {
         type: String,
-        required: true,
+        required: false,
     },
     // access_token: {
     //     type: String,

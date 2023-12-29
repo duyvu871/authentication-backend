@@ -67,15 +67,22 @@ export default class AuthService {
             };
         }
     }
+
+    // async login(username) {
+    //     const
+    // }
     // generate token
     async generateToken(username, password) {
         return await bcrypt.hash(`${username}-${password}`, 10);
     }
 
     // Generate jwt
-    async generateJWT(_id, accessTokenSecret, accessTokenLife) {
+    async generateJWT(_id, role, accessTokenSecret, accessTokenLife) {
         return await jwt.sign(
-            {id: _id},
+            {
+                id: _id,
+                role: role
+            },
             accessTokenSecret,
             {
                 expiresIn: accessTokenLife,
@@ -113,7 +120,7 @@ export default class AuthService {
     async getUserByName(username) {
         if (!username) return null;
 
-        return await this.User.findOne({username: username});
+        return this.User.findOne({username: username});
     }
 
     async getUserByEmail(email) {
@@ -135,6 +142,25 @@ export default class AuthService {
             status: 200,
             specifyCode: 'user_found'
 
+        }; // return user
+    }
+
+    async updatePassword(uid, newPassword) {
+        // const decoded = await this.decodeToken(refreshToken, AppConfig.access_token_secret);
+        const user = await this.User.findOne({_id: uid}); // search user in db
+        if (!user) return {
+            response: {
+                message :'User not found'
+            },
+            status: 400,
+            specifyCode: 'user_not_found'
+        }; // if user not found
+        user.password = newPassword;
+        await user.save();
+        return {
+            response: user,
+            status: 200,
+            specifyCode: 'change_password_success'
         }; // return user
     }
 }

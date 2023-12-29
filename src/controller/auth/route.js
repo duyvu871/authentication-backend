@@ -44,6 +44,7 @@ authRouter.post(
             // access token
             const accessToken = await authController.generateJWT(
                 result.response._id,
+                result.response.role,
                 accessTokenSecret,
                 accessTokenLife
             );
@@ -88,14 +89,9 @@ authRouter.post(
 
 authRouter.post(
     '/logout',
-    passport.authenticate("local", {
-        successRedirect: "/", // redirect to the secure profile section
-        failureRedirect: "/", // redirect back to the signup page if there is an error
-        failureFlash: true, // allow flash messages
-    }), // authenticate user
+    authenticateJWT,
     (req, res) => {
-    // Logout
-    req.logout();
+    const authController = new AuthService();
     // Redirect to login page
     return res.redirect('/');
 });
@@ -224,3 +220,29 @@ authRouter.get(
             .json({accessToken: newAccessToken});
     }
 );
+
+authRouter.post('/update/update-password', authenticateJWT, async (req, res) => {
+    try {
+        const authController = new AuthService();
+        // const userData = await authController.getUserById(req.user_id);
+        // const refreshToken = userData.response.refresh_token;
+        const result = await authController.updatePassword(req.user_id, req.body.updatedPassword);
+        if (result.status !== 200) {
+            return res
+                .header("Access-Control-Allow-Origin", "*")
+                .status(400)
+                .json({...result});
+        }
+        return res
+            .header("Access-Control-Allow-Origin", "*")
+            .status(200)
+            .json(result);
+    } catch (error) {
+        return res
+            .header("Access-Control-Allow-Origin", "*")
+            .status(500)
+            .json({...error});
+    }
+});
+
+
