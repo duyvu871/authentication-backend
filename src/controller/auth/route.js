@@ -28,7 +28,7 @@ authRouter.post(
             // console.log("email: ", email);
             // console.log("password: ", password);
             // Get ip address
-            const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+            const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
             // Setup auth service
             const authController = new AuthService();
             // Login
@@ -102,7 +102,7 @@ authRouter.post(
     celebrate(registrySchema),
     async (req, res) => {
         const authController = new AuthService();
-        const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         const userInsertData = {
             email: req.body.email || "abc@gmail.com",
             password: req.body.password,
@@ -245,4 +245,24 @@ authRouter.post('/update/update-password', authenticateJWT, async (req, res) => 
     }
 });
 
-
+authRouter.post('/update/update-phone', authenticateJWT, async (req, res) => {
+    try {
+        const authController = new AuthService();
+        const result = await authController.updatePhone(req.user_id, req.body.updatedPhone);
+        if (result.status !== 200) {
+            return res
+                .header("Access-Control-Allow-Origin", "*")
+                .status(400)
+                .json({...result});
+        }
+        return res
+            .header("Access-Control-Allow-Origin", "*")
+            .status(200)
+            .json(result);
+    } catch (error) {
+        return res
+            .header("Access-Control-Allow-Origin", "*")
+            .status(500)
+            .json({...error});
+    }
+});

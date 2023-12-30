@@ -1,10 +1,12 @@
 import Loaders from "./loaders/index.js";
 import express from "express";
 import AppConfig from "./configs/app.config.js";
+import testCron from "./cron.js";
 
 async function startServer() {
     const app = express();
     await Loaders({ expressApp: app });
+    // app.get("/cron-job/test", testCron);
     app.listen(AppConfig.port, err => {
         if (err) {
             console.log(err);

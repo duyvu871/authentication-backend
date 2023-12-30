@@ -17,6 +17,7 @@ const AppConfig = {
     jwtSecret: "chaomungden",
     access_token_secret: "chaomungden",
     access_token_life: 3600,
+    wait_time: 1800,
 };
 
 export default AppConfig;

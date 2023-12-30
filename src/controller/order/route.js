@@ -1,18 +1,17 @@
 import express from 'express';
 import {celebrate} from 'celebrate';
 import {OrderSchema} from "./dto.js";
-import { OrderService } from "../../services/order.service.js";
-import { authenticateJWT} from "../../scripts/authenticateJWT.js";
-import {RotationLuckService} from "../rotation-luck/service.js";
-import { responseTemplate } from "../../ultis/responseWrapper.ultis.js";
-import { createOrder } from "../../scripts/orderControl.js";
+import {OrderService} from "../../services/order.service.js";
+import {authenticateJWT} from "../../scripts/authenticateJWT.js";
+import {responseTemplate} from "../../ultis/responseWrapper.ultis.js";
+import {createOrder} from "../../scripts/orderControl.js";
 
 export const orderRouter = express.Router();
 console.log(`Order router loaded: /order`);
 orderRouter.get(
     '/get-order-list',
     // celebrate(OrderSchema),
-    authenticateJWT,
+    // authenticateJWT,
     async (req, res) => {
         try {
             const userId = req.user_id;
@@ -33,7 +32,7 @@ orderRouter.get(
 orderRouter.post(
     '/create-order',
     celebrate(OrderSchema),
-    authenticateJWT,
+    // authenticateJWT,
     async (req, res) => {
         // try {
         //     const userId = req.user_id;
@@ -52,8 +51,54 @@ orderRouter.post(
         // } catch (error) {
         //     return responseTemplate(res).status(500).json({message: error.message});
         // }
-        const orderResponse = await createOrder(req, res);
-
-        return orderResponse
+        return await createOrder(req, res)
     }
 );
+
+orderRouter.post('/create-collection', async (req, res) => {
+    try {
+        const orderService = new OrderService();
+        const result = await orderService.createCollection(req.body);
+        return responseTemplate(res).status(200).json(result);
+    } catch (error) {
+        return responseTemplate(res).status(500).json({message: error.message});
+    }
+})
+
+orderRouter.post('/create-collection-time', async (req, res) => {
+        try {
+            // const { collectionTime: { start, end } } = req.body;
+            const orderService = new OrderService();
+            const result = undefined //await orderService.createCollectionTime();
+            const getAllCollectionByTimeRange = await orderService.getAllCollectionByTimeRange(req.body);
+            // console.log(getAllCollectionByTimeRange);
+            return responseTemplate(res).status(200).json(result || getAllCollectionByTimeRange);
+        } catch (error) {
+            return responseTemplate(res).status(500).json({message: error.message});
+        }
+    }
+)
+
+orderRouter.post("/update-collection-time", async (req, res) => {
+    try {
+        // const {collectionTime: {start, end}} = req.body;
+        const currentTime = new Date().getTime();
+        const after30Minutes = currentTime + 30 * 60 * 1000;
+        const orderService = new OrderService();
+        const result = await orderService.updateCollectionTime(currentTime, after30Minutes);
+        return responseTemplate(res).status(200).json(result);
+    } catch (error) {
+        return responseTemplate(res).status(500).json({message: error.message});
+    }
+})
+
+orderRouter.get('/get-collection-time', async (req, res) => {
+        try {
+            const orderService = new OrderService();
+            const result = await orderService.getCollectionTime();
+            return responseTemplate(res).status(200).json(result);
+        } catch (error) {
+            return responseTemplate(res).status(500).json({message: error.message});
+        }
+    }
+)
